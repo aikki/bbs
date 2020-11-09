@@ -64,25 +64,20 @@ class Run extends Command
 
         $n = $p*$q;
 
-        $this->info("Liczba n = $p * $q = $n");
-
         do {
-            $s = rand(1, $n-1);
+            $s = rand(1, $n-1); #Liczba X
         } while (gmp_gcd($s, $n) != 1);
 
         $this->info("Liczba s = $s");
         $this->comment("NWD($s, $n) = " . gmp_strval(gmp_gcd($s, $n)));
 
-        $array = [];
+        $array = []; //Tablica wartości
+        $arrayb = []; //Tablica wygenerowanych bitów
 
-        $arrayb = [];
-
-        // $array[0] = $this->truemod(pow($s, 2), $n);
-        $array[0] = pow($s, 2) % $n;
+        $array[0] = pow($s, 2) % $n; //Wartość początkowa
         $arrayb[0] = $array[0] & 1;
 
         for ($i = 1; $i < $z; $i++) {
-            // $array[$i] = $this->truemod(pow($array[$i-1], 2), $n);
             $array[$i] = pow($array[$i-1], 2) % $n;
             $arrayb[$i] = $array[$i] & 1;
         }
